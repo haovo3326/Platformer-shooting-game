@@ -76,7 +76,7 @@ public class GamePanel extends JPanel implements KeyListener {
                 new Vector2(600, 100),
                 new Vector2(40, 70),
                 Color.CYAN,
-                2.75, 0.175,
+                3, 0.175,
                 6, 2);
         map = GameMap.MAP1;
         physics = new PhysicHandler(player, map);
