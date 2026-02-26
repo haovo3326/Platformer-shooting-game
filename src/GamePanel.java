@@ -2,9 +2,9 @@ import Camera.ChasingCamera;
 import CustomMath.Vector2;
 import Maps.GameMap;
 import Maps.Map;
-import Maps.Obstacle;
 import PlayerManager.Player;
 import PlayerManager.PlayerController;
+import Weapon.Gun;
 
 import javax.swing.*;
 import java.awt.*;
@@ -66,6 +66,7 @@ public class GamePanel extends JPanel implements KeyListener {
     private PhysicHandler physics;
     private PlayerController playerController;
     private ChasingCamera camera;
+    private Gun gun;
 
     // --- Standard functions ---
     private void init() {
@@ -88,7 +89,8 @@ public class GamePanel extends JPanel implements KeyListener {
         camera = new ChasingCamera(player,
                 new Vector2(0, 0),
                 new Vector2(width, height),
-                0.066, 0.05);
+                0.033, 0.05);
+        gun = new Gun(player, new Vector2(40, 16));
     }
 
     private void update() {
@@ -105,6 +107,7 @@ public class GamePanel extends JPanel implements KeyListener {
         // TODO: optional: compute what to draw (often empty in Swing)
         map.render(g2d, camera);
         player.render(g2d, camera);
+        gun.render(g2d, camera);
     }
 
     private void onExit() {

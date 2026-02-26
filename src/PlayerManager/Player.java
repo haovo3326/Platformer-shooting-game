@@ -9,6 +9,7 @@ public class Player {
     public Vector2 translation;
     public Vector2 scale;
     public Vector2 velocity;
+    public String direction = "right";
 
     public double moveSpeed;
     public double acceleration;
@@ -37,6 +38,7 @@ public class Player {
     }
 
     public void moveLeft(){
+        direction = "left";
         if(velocity.x < -moveSpeed) {
             velocity.x = -moveSpeed;
             return;
@@ -45,6 +47,7 @@ public class Player {
     }
 
     public void moveRight(){
+        direction = "right";
         if(velocity.x > moveSpeed){
             velocity.x = moveSpeed;
             return;
