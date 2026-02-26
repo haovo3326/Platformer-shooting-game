@@ -1,3 +1,5 @@
+import CustomMath.Vector2;
+
 import javax.swing.*;
 import java.awt.*;
 
@@ -10,17 +12,14 @@ public class GameFrame extends JFrame {
         setResizable(false);
 
         // Get usable screen size (excludes taskbar)
-        Rectangle usable = GraphicsEnvironment
-                .getLocalGraphicsEnvironment()
-                .getMaximumWindowBounds();
+        Vector2 frameSize = new Vector2(1366, 768);
+        setSize((int) frameSize.x, (int) frameSize.y);
+        setLocationRelativeTo(null);
 
-        setBounds(usable);
-
-        GamePanel gamePanel = new GamePanel();
+        GamePanel gamePanel = new GamePanel(frameSize);
         add(gamePanel);
 
         setVisible(true);
-        System.out.println(usable.toString());
     }
 
     static void main(String[] args) {

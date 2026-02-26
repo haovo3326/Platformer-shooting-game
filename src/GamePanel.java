@@ -15,15 +15,16 @@ public class GamePanel extends JPanel implements KeyListener {
 
     private Thread gameThread;
     private volatile boolean running = false;
-
     private static final int FPS = 120;
     private static final long NS_PER_FRAME = 1_000_000_000L / FPS;
+    private final Vector2 frameSize;
 
-    public GamePanel() {
+    public GamePanel(Vector2 frameSize) {
         setBackground(new Color(30, 30, 30));
         setFocusable(true);
         addKeyListener(this);
         requestFocusInWindow();
+        this.frameSize = frameSize;
     }
 
     public void startGame() {
@@ -83,13 +84,9 @@ public class GamePanel extends JPanel implements KeyListener {
 
         playerController = new PlayerController(player);
 
-        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-        int width = screenSize.width;
-        int height = screenSize.height;
         camera = new ChasingCamera(player,
                 new Vector2(0, 0),
-                new Vector2(width, height),
-                0.033, 0.05);
+                frameSize, 0.033, 0.05);
         gun = new Gun(player, new Vector2(40, 16));
     }
 

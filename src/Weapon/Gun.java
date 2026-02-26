@@ -19,17 +19,17 @@ public class Gun {
         g2d.setColor(Color.WHITE);
         if(host.direction.equals("right")){
             g2d.fillRect(
-                    (int)(host.translation.x + host.scale.x / 2 - camera.translation.x),
-                    (int)(host.translation.y + host.scale.y / 2 - scale.y / 2 - camera.translation.y),
-                    (int) scale.x,
-                    (int) scale.y
+                    (int)((host.translation.x + host.scale.x / 2 - camera.translation.x) * camera.frameSize.x / ChasingCamera.SCALE.x),
+                    (int)((host.translation.y + host.scale.y / 2 - scale.y / 2 - camera.translation.y) * camera.frameSize.y / ChasingCamera.SCALE.y),
+                    (int) (scale.x * camera.frameSize.x / ChasingCamera.SCALE.x),
+                    (int) (scale.y * camera.frameSize.y / ChasingCamera.SCALE.y)
             );
         } else {
             g2d.fillRect(
-                    (int)(host.translation.x + host.scale.x / 2 - scale.x - camera.translation.x),
-                    (int)(host.translation.y + host.scale.y / 2 - scale.y / 2 - camera.translation.y),
-                    (int) scale.x,
-                    (int) scale.y
+                    (int)((host.translation.x + host.scale.x / 2 - scale.x - camera.translation.x) * camera.frameSize.x / ChasingCamera.SCALE.x),
+                    (int)((host.translation.y + host.scale.y / 2 - scale.y / 2 - camera.translation.y) * camera.frameSize.y / ChasingCamera.SCALE.y),
+                    (int) (scale.x * camera.frameSize.x / ChasingCamera.SCALE.x),
+                    (int) (scale.y * camera.frameSize.y / ChasingCamera.SCALE.y)
             );
         }
     }
