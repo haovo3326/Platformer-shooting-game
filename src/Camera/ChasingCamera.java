@@ -10,12 +10,12 @@ public class ChasingCamera {
     private final double idleRadius; // No lerping if distance too small (camera idle)
     private final double lerpingRate;
 
-    public ChasingCamera(Player player, Vector2 translation, Vector2 scale, double lerpingRate, double collapseRadius){
+    public ChasingCamera(Player player, Vector2 translation, Vector2 scale, double lerpingRate, double idleRadius){
         this.player = player;
         this.translation = translation;
         this.scale = scale;
         this.lerpingRate = lerpingRate;
-        this.idleRadius = collapseRadius;
+        this.idleRadius = idleRadius;
     }
 
     public void update(){

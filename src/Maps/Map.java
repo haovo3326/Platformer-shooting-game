@@ -1,4 +1,6 @@
 package Maps;
+import Camera.ChasingCamera;
+
 import java.awt.*;
 
 public class Map {
@@ -8,9 +10,9 @@ public class Map {
         this.obstacles = obstacles;
     }
 
-    public void render(Graphics2D g2d){
+    public void render(Graphics2D g2d, ChasingCamera camera){
         for(Obstacle obs : obstacles){
-            obs.render(g2d);
+            obs.render(g2d, camera);
         }
     }
 }

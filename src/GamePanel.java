@@ -1,3 +1,4 @@
+import Camera.ChasingCamera;
 import CustomMath.Vector2;
 import Maps.GameMap;
 import Maps.Map;
@@ -64,21 +65,30 @@ public class GamePanel extends JPanel implements KeyListener {
     private Map map;
     private PhysicHandler physics;
     private PlayerController playerController;
+    private ChasingCamera camera;
 
     // --- Standard functions ---
     private void init() {
         // TODO: load resources, init variables
         player = new Player(
                 new Vector2(600, 100),
-                new Vector2(50, 80),
+                new Vector2(40, 70),
                 Color.CYAN,
                 2.75, 0.175,
-                5.9, 2);
+                6, 2);
         map = GameMap.MAP1;
         physics = new PhysicHandler(player, map);
         physics.init(0.15, 0.075);
 
         playerController = new PlayerController(player);
+
+        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+        int width = screenSize.width;
+        int height = screenSize.height;
+        camera = new ChasingCamera(player,
+                new Vector2(0, 0),
+                new Vector2(width, height),
+                0.066, 0.05);
     }
 
     private void update() {
@@ -88,12 +98,13 @@ public class GamePanel extends JPanel implements KeyListener {
         physics.update();
         player.update();
         physics.handleCollision();
+        camera.update();
     }
 
     private void render(Graphics2D g2d) {
         // TODO: optional: compute what to draw (often empty in Swing)
-        map.render(g2d);
-        player.render(g2d);
+        map.render(g2d, camera);
+        player.render(g2d, camera);
     }
 
     private void onExit() {
