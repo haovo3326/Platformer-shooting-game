@@ -11,7 +11,6 @@ public class GameFrame extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setResizable(false);
 
-        // Get usable screen size (excludes taskbar)
         Vector2 frameSize = new Vector2(1366, 768);
         setSize((int) frameSize.x, (int) frameSize.y);
         setLocationRelativeTo(null);
