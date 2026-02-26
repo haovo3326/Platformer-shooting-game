@@ -15,6 +15,11 @@ public class ResolutionDialog extends JFrame implements ActionListener {
         setSize(400, 400);
         setBackground(Color.LIGHT_GRAY);
 
+        Font uiFont = new Font("Segoe UI", Font.BOLD, 13);
+        UIManager.put("Label.font", uiFont);
+        UIManager.put("Button.font", uiFont);
+        UIManager.put("ComboBox.font", uiFont);
+        UIManager.put("CheckBox.font", uiFont);
         splittingMainFrame();
 
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -94,6 +99,7 @@ public class ResolutionDialog extends JFrame implements ActionListener {
         String currentRes = screenSize.width + " x " + screenSize.height;
         List<String> resolutions = new ArrayList<>();
         resolutions.add("1920 x 1080");
+        resolutions.add("1600 x 900");
         resolutions.add("1366 x 768");
         resolutions.add("1280 x 720");
         if (!resolutions.contains(currentRes)) {
