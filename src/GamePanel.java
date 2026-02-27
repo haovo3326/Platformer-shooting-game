@@ -2,12 +2,7 @@ import Camera.ChasingCamera;
 import CustomMath.Vector2;
 import Maps.GameMap;
 import Maps.Map;
-import PlayerManager.GunController;
-import PlayerManager.Player;
-import PlayerManager.MovementController;
 import PlayerManager.PlayerProfile;
-import Weapon.Gun;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
@@ -28,7 +23,6 @@ public class GamePanel extends JPanel implements KeyListener {
         requestFocusInWindow();
         this.frameSize = frameSize;
     }
-
     public void startGame() {
         if (running) return;
 
@@ -36,11 +30,9 @@ public class GamePanel extends JPanel implements KeyListener {
         gameThread = new Thread(this::gameLoop, "GameLoopThread");
         gameThread.start();
     }
-
     public void stopGame() {
         running = false;
     }
-
     private void gameLoop() {
         init(); // one-time setup
 

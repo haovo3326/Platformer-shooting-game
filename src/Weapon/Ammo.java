@@ -9,7 +9,7 @@ public class Ammo {
     private final Vector2 translation;
     private final Vector2 scale;
     private final double speed;
-    private final double angle;
+    public final double angle;
 
     public Ammo(Vector2 translation, Vector2 scale, double speed, double angle){
         this.translation = translation;
