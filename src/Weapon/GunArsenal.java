@@ -15,7 +15,7 @@ public class GunArsenal {
     public GunArsenal(Player player){
         arsenal = new HashMap<>();
         currentGun = "pistol";
-        arsenal.put("pistol", new Gun(player, new Vector2(40, 16), 10, 10, 7, Math.toRadians(3)));
+        arsenal.put("pistol", new Gun(player, new Vector2(40, 16), 10, 10, 7, Math.toRadians(3), 1));
     }
 
     public void useGun(String tag){

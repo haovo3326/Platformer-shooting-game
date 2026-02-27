@@ -5,6 +5,7 @@ import Maps.Map;
 import PlayerManager.GunController;
 import PlayerManager.Player;
 import PlayerManager.MovementController;
+import PlayerManager.PlayerProfile;
 import Weapon.Gun;
 
 import javax.swing.*;
@@ -49,6 +50,7 @@ public class GamePanel extends JPanel implements KeyListener {
             long now = System.nanoTime();
 
             if (now - last >= NS_PER_FRAME) {
+                input();
                 update();
                 repaint();
                 last = now;
@@ -63,51 +65,39 @@ public class GamePanel extends JPanel implements KeyListener {
     }
 
     // Game's components
-    private Player player;
     private Map map;
     private PhysicHandler physics;
-    private MovementController movementController;
-    private GunController gunController;
     private ChasingCamera camera;
-    private Gun gun;
+    private PlayerProfile playerProfile;
 
     // --- Standard functions ---
     private void init() {
         // TODO: load resources, init variables
-        player = new Player(
-                new Vector2(600, 100),
-                new Vector2(40, 70),
-                Color.CYAN,
-                3, 0.175,
-                6, 2);
+        playerProfile = new PlayerProfile();
         map = GameMap.MAP1;
-        physics = new PhysicHandler(player, map);
+        physics = new PhysicHandler(playerProfile.getPlayer(), map);
         physics.init(0.15, 0.075);
-
-        movementController = new MovementController(player);
-        gunController = new GunController(player);
-
-        camera = new ChasingCamera(player,
+        camera = new ChasingCamera(playerProfile.getPlayer(),
                 new Vector2(0, 0),
                 frameSize, 0.033, 0.05);
     }
 
+    private void input(){
+        playerProfile.input();
+    }
+
     private void update() {
         // TODO: update game state
-        movementController.update();
-        gunController.update();
-
         physics.update();
-        player.update();
         physics.handleCollision();
         camera.update();
+        playerProfile.update();
     }
 
     private void render(Graphics2D g2d) {
         // TODO: optional: compute what to draw (often empty in Swing)
         map.render(g2d, camera);
-        player.render(g2d, camera);
-        gunController.render(g2d, camera);
+        playerProfile.render(g2d, camera);
     }
 
     private void onExit() {
@@ -135,13 +125,11 @@ public class GamePanel extends JPanel implements KeyListener {
 
     @Override
     public void keyPressed(KeyEvent e) {
-        movementController.keyPressed(e);
-        gunController.keyPressed(e);
+        playerProfile.keyPressed(e);
     }
 
     @Override
     public void keyReleased(KeyEvent e) {
-        movementController.keyReleased(e);
-        gunController.keyReleased(e);
+        playerProfile.keyReleased(e);
     }
 }

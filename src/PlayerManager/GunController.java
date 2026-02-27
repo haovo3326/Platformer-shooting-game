@@ -8,18 +8,19 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
 public class GunController implements KeyListener {
-    private final Player player;
     private final GunArsenal arsenal;
     private boolean shoot;
 
     public GunController(Player player){
-        this.player = player;
         arsenal = new GunArsenal(player);
         arsenal.useGun("pistol");
     }
 
-    public void update(){
+    public void input(){
         if(shoot) arsenal.shoot();
+    }
+
+    public void update(){
         arsenal.update();
     }
 

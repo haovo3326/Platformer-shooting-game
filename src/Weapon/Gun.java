@@ -15,11 +15,12 @@ public class Gun {
     private final List<Ammo> ammo;
     private int fireTimer;
     private final int fireRate;
-    private final double ammoSize;// Ammo per second
+    private final double ammoSize;     // Ammo per second
     private final double ammoSpeed;    // Ammo speed
     private final double recoilAngle;  // Maximum ammo deflection angle
+    private final double recoilBurst;  // Impulse to repel host
 
-    public Gun(Player host, Vector2 scale, int fireRate, double ammoSize, double ammoSpeed, double recoilAngle){
+    public Gun(Player host, Vector2 scale, int fireRate, double ammoSize, double ammoSpeed, double recoilAngle, double recoilBurst){
         this.host = host;
         this.scale = scale;
         this.ammo = new ArrayList<>();
@@ -28,11 +29,16 @@ public class Gun {
         this.ammoSize = ammoSize;
         this.ammoSpeed = ammoSpeed;
         this.recoilAngle = recoilAngle;
+        this.recoilBurst = recoilBurst;
     }
 
     public void shoot(){
         if(fireTimer == 0){
             if(host.direction.equals("right")){
+                // Repel host
+                host.accelerate(new Vector2(-recoilBurst, 0));
+
+                // Spawn ammo
                 Vector2 spawn = new Vector2(
                         host.translation.x + host.scale.x / 2 + scale.x,
                         host.translation.y + host.scale.y / 2 - ammoSize / 2
@@ -40,6 +46,10 @@ public class Gun {
                 double angle = Math.random() * 2 * recoilAngle - recoilAngle;
                 ammo.add(new Ammo(spawn, new Vector2(ammoSize, ammoSize), ammoSpeed, angle));
             } else {
+                // Repel host
+                host.accelerate(new Vector2(recoilBurst, 0));
+
+                // Spawn ammo
                 Vector2 spawn = new Vector2(
                         host.translation.x + host.scale.x / 2 - scale.x,
                         host.translation.y + host.scale.y / 2 - ammoSize / 2

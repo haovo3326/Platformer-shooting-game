@@ -14,7 +14,7 @@ public class MovementController implements KeyListener {
         this.player = player;
     }
 
-    public void update(){
+    public void input(){
         if(moveLeft) {
             player.moveLeft();
         }
