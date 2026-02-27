@@ -87,12 +87,13 @@ public class GamePanel extends JPanel implements KeyListener {
         camera = new ChasingCamera(player,
                 new Vector2(0, 0),
                 frameSize, 0.033, 0.05);
-        gun = new Gun(player, new Vector2(40, 16));
+        gun = new Gun(player, new Vector2(40, 16), 10, 16, 6, Math.toRadians(5));
     }
 
     private void update() {
         // TODO: update game state
         playerController.update();
+        gun.update();
 
         physics.update();
         player.update();
@@ -133,6 +134,9 @@ public class GamePanel extends JPanel implements KeyListener {
     @Override
     public void keyPressed(KeyEvent e) {
         playerController.keyPressed(e);
+        if(e.getKeyCode() == KeyEvent.VK_T){
+            gun.shoot();
+        }
     }
 
     @Override

@@ -84,10 +84,10 @@ public class Player {
     public void render(Graphics2D g2d, ChasingCamera camera){
         g2d.setColor(color);
         g2d.fillRect(
-                (int) ((translation.x - camera.translation.x) * camera.frameSize.x / ChasingCamera.SCALE.x),
-                (int) ((translation.y - camera.translation.y) * camera.frameSize.y / ChasingCamera.SCALE.y),
-                (int) (scale.x * camera.frameSize.x / ChasingCamera.SCALE.x),
-                (int) (scale.y * camera.frameSize.y / ChasingCamera.SCALE.y)
+                (int) ((translation.x - camera.translation.x) * camera.frameRes.x / ChasingCamera.REFERENCE_RES.x),
+                (int) ((translation.y - camera.translation.y) * camera.frameRes.y / ChasingCamera.REFERENCE_RES.y),
+                (int) (scale.x * camera.frameRes.x / ChasingCamera.REFERENCE_RES.x),
+                (int) (scale.y * camera.frameRes.y / ChasingCamera.REFERENCE_RES.y)
         );
     }
 }
