@@ -3,14 +3,14 @@ package PlayerManager;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
-public class PlayerController implements KeyListener {
+public class MovementController implements KeyListener {
     private final Player player;
     private boolean moveLeft;
     private boolean moveRight;
     private boolean crouch;
     private boolean jump;
 
-    public PlayerController(Player player){
+    public MovementController(Player player){
         this.player = player;
     }
 

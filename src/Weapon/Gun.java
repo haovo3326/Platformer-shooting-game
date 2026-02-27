@@ -11,7 +11,7 @@ import java.util.List;
 public class Gun {
     private final Player host;
     private final Vector2 scale;
-
+    public boolean isUsed;
     private final List<Ammo> ammo;
     private int fireTimer;
     private final int fireRate;
@@ -23,6 +23,7 @@ public class Gun {
         this.host = host;
         this.scale = scale;
         this.ammo = new ArrayList<>();
+        this.isUsed = false;
         this.fireRate = fireRate;
         this.ammoSize = ammoSize;
         this.ammoSpeed = ammoSpeed;
@@ -68,21 +69,23 @@ public class Gun {
                 am.render(g2d, camera);
             }
         }
-        g2d.setColor(Color.WHITE);
-        if(host.direction.equals("right")){
-            g2d.fillRect(
-                    (int)((host.translation.x + host.scale.x / 2 - camera.translation.x) * camera.frameRes.x / ChasingCamera.REFERENCE_RES.x),
-                    (int)((host.translation.y + host.scale.y / 2 - scale.y / 2 - camera.translation.y) * camera.frameRes.y / ChasingCamera.REFERENCE_RES.y),
-                    (int) (scale.x * camera.frameRes.x / ChasingCamera.REFERENCE_RES.x),
-                    (int) (scale.y * camera.frameRes.y / ChasingCamera.REFERENCE_RES.y)
-            );
-        } else {
-            g2d.fillRect(
-                    (int)((host.translation.x + host.scale.x / 2 - scale.x - camera.translation.x) * camera.frameRes.x / ChasingCamera.REFERENCE_RES.x),
-                    (int)((host.translation.y + host.scale.y / 2 - scale.y / 2 - camera.translation.y) * camera.frameRes.y / ChasingCamera.REFERENCE_RES.y),
-                    (int) (scale.x * camera.frameRes.x / ChasingCamera.REFERENCE_RES.x),
-                    (int) (scale.y * camera.frameRes.y / ChasingCamera.REFERENCE_RES.y)
-            );
+        if(isUsed){
+            g2d.setColor(Color.WHITE);
+            if(host.direction.equals("right")){
+                g2d.fillRect(
+                        (int)((host.translation.x + host.scale.x / 2 - camera.translation.x) * camera.frameRes.x / ChasingCamera.REFERENCE_RES.x),
+                        (int)((host.translation.y + host.scale.y / 2 - scale.y / 2 - camera.translation.y) * camera.frameRes.y / ChasingCamera.REFERENCE_RES.y),
+                        (int) (scale.x * camera.frameRes.x / ChasingCamera.REFERENCE_RES.x),
+                        (int) (scale.y * camera.frameRes.y / ChasingCamera.REFERENCE_RES.y)
+                );
+            } else {
+                g2d.fillRect(
+                        (int)((host.translation.x + host.scale.x / 2 - scale.x - camera.translation.x) * camera.frameRes.x / ChasingCamera.REFERENCE_RES.x),
+                        (int)((host.translation.y + host.scale.y / 2 - scale.y / 2 - camera.translation.y) * camera.frameRes.y / ChasingCamera.REFERENCE_RES.y),
+                        (int) (scale.x * camera.frameRes.x / ChasingCamera.REFERENCE_RES.x),
+                        (int) (scale.y * camera.frameRes.y / ChasingCamera.REFERENCE_RES.y)
+                );
+            }
         }
     }
 }

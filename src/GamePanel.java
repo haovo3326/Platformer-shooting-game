@@ -2,8 +2,9 @@ import Camera.ChasingCamera;
 import CustomMath.Vector2;
 import Maps.GameMap;
 import Maps.Map;
+import PlayerManager.GunController;
 import PlayerManager.Player;
-import PlayerManager.PlayerController;
+import PlayerManager.MovementController;
 import Weapon.Gun;
 
 import javax.swing.*;
@@ -65,7 +66,8 @@ public class GamePanel extends JPanel implements KeyListener {
     private Player player;
     private Map map;
     private PhysicHandler physics;
-    private PlayerController playerController;
+    private MovementController movementController;
+    private GunController gunController;
     private ChasingCamera camera;
     private Gun gun;
 
@@ -82,18 +84,18 @@ public class GamePanel extends JPanel implements KeyListener {
         physics = new PhysicHandler(player, map);
         physics.init(0.15, 0.075);
 
-        playerController = new PlayerController(player);
+        movementController = new MovementController(player);
+        gunController = new GunController(player);
 
         camera = new ChasingCamera(player,
                 new Vector2(0, 0),
                 frameSize, 0.033, 0.05);
-        gun = new Gun(player, new Vector2(40, 16), 10, 16, 6, Math.toRadians(5));
     }
 
     private void update() {
         // TODO: update game state
-        playerController.update();
-        gun.update();
+        movementController.update();
+        gunController.update();
 
         physics.update();
         player.update();
@@ -105,7 +107,7 @@ public class GamePanel extends JPanel implements KeyListener {
         // TODO: optional: compute what to draw (often empty in Swing)
         map.render(g2d, camera);
         player.render(g2d, camera);
-        gun.render(g2d, camera);
+        gunController.render(g2d, camera);
     }
 
     private void onExit() {
@@ -133,14 +135,13 @@ public class GamePanel extends JPanel implements KeyListener {
 
     @Override
     public void keyPressed(KeyEvent e) {
-        playerController.keyPressed(e);
-        if(e.getKeyCode() == KeyEvent.VK_T){
-            gun.shoot();
-        }
+        movementController.keyPressed(e);
+        gunController.keyPressed(e);
     }
 
     @Override
     public void keyReleased(KeyEvent e) {
-        playerController.keyReleased(e);
+        movementController.keyReleased(e);
+        gunController.keyReleased(e);
     }
 }
