@@ -1,7 +1,9 @@
 import Camera.ChasingCamera;
 import CustomMath.Vector2;
-import Maps.GameMap;
+import Maps.MapArsenal;
 import Maps.Map;
+import PlayerManager.BotManager.BotProfile;
+import PlayerManager.Player;
 import PlayerManager.PlayerProfile;
 import javax.swing.*;
 import java.awt.*;
@@ -57,21 +59,23 @@ public class GamePanel extends JPanel implements KeyListener {
     }
 
     // Game's components
-    private Map map;
+    private Map map2;
     private PhysicHandler physics;
     private ChasingCamera camera;
     private PlayerProfile playerProfile;
+    private BotProfile botProfile;
 
     // --- Standard functions ---
     private void init() {
         // TODO: load resources, init variables
         playerProfile = new PlayerProfile();
-        map = GameMap.MAP1;
-        physics = new PhysicHandler(playerProfile.getPlayer(), map);
-        physics.init(0.15, 0.075);
+        map2 = MapArsenal.createMap2();
+        botProfile = new BotProfile(playerProfile.getPlayer(), map2);
         camera = new ChasingCamera(playerProfile.getPlayer(),
                 new Vector2(0, 0),
                 frameSize, 0.033, 0.05);
+        physics = new PhysicHandler(new Player[]{playerProfile.getPlayer(), botProfile.getBot()}, map2);
+        physics.init(0.15, 0.075);
     }
 
     private void input(){
@@ -84,12 +88,14 @@ public class GamePanel extends JPanel implements KeyListener {
         physics.handleCollision();
         camera.update();
         playerProfile.update();
+        botProfile.update();
     }
 
     private void render(Graphics2D g2d) {
         // TODO: optional: compute what to draw (often empty in Swing)
-        map.render(g2d, camera);
+        map2.render(g2d, camera);
         playerProfile.render(g2d, camera);
+        botProfile.render(g2d, camera);
     }
 
     private void onExit() {

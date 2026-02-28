@@ -9,11 +9,13 @@ public class Obstacle {
     public final Vector2 translation;
     public final Vector2 scale;
     public Color color;
+    public int level;   // The platform index where the obstacle takes place
 
-    public Obstacle(Vector2 translation, Vector2 scale, Color color){
+    public Obstacle(Vector2 translation, Vector2 scale, Color color, int level){
         this.translation = translation;
         this.scale = scale;
         this.color = color;
+        this.level = level;
     }
 
     public void render(Graphics2D g2d, ChasingCamera camera){

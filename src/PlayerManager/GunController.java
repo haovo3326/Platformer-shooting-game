@@ -13,7 +13,7 @@ public class GunController implements KeyListener {
 
     public GunController(Player player){
         arsenal = new GunArsenal(player);
-        arsenal.useGun("Requiem");
+        arsenal.useGun("Glick");
     }
 
     public void input(){
