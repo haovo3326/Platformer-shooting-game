@@ -11,19 +11,17 @@ public class ChasingCamera {
     public final Vector2 frameRes;
 
     private final List<Player> players;
-    private final Map map;
     private final double idleRadius; // No lerping if distance too small (camera idle)
     private final double lerpingRate;
 
 
-    public ChasingCamera(List<Player> players, Map map, Vector2 frameSize,
+    public ChasingCamera(List<Player> players, Vector2 frameSize,
                          double lerpingRate, double idleRadius){
         this.players = players;
-        this.map = map;
         this.lerpingRate = lerpingRate;
         this.idleRadius = idleRadius;
         this.frameRes = frameSize;
-        translation = map.scale.mul2Vec(0.5).sub2Vec(REFERENCE_RES.mul2Vec(0.5));
+        translation = Map.ORIGIN.add2Vec(Map.SCALE.mul2Vec(0.5).sub2Vec(REFERENCE_RES.mul2Vec(0.5)));
     }
 
     private void chasingPlayers(){
@@ -31,15 +29,15 @@ public class ChasingCamera {
         double inboundCount = 0;
         for(Player player : players){
             Vector2 center = player.translation.add2Vec(player.scale.mul2Vec(0.5));
-            if(center.x >= Map.ORIGIN.x && center.x < Map.ORIGIN.x + map.scale.x
-                    && center.y >= Map.ORIGIN.y && center.y <= Map.ORIGIN.y + map.scale.y){
+            if(center.x >= Map.ORIGIN.x && center.x < Map.ORIGIN.x + Map.SCALE.x
+                    && center.y >= Map.ORIGIN.y && center.y <= Map.ORIGIN.y + Map.SCALE.y){
                 playersCenter.add(center);
                 inboundCount ++;
             }
         }
         playersCenter.mul(1.0 / inboundCount);
         if(inboundCount == 0){
-            playersCenter = Map.ORIGIN.add2Vec(map.scale.mul2Vec(0.5));
+            playersCenter = Map.ORIGIN.add2Vec(Map.SCALE.mul2Vec(0.5));
         }
 
         Vector2 cameraCenter = translation.add2Vec(REFERENCE_RES.mul2Vec(0.5));

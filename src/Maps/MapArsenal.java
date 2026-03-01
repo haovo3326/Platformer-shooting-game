@@ -10,7 +10,7 @@ public class MapArsenal {
                 new Obstacle(new Vector2(800, 1000), new Vector2(1400, 20), Color.GRAY, 2),
                 new Obstacle(new Vector2(1000, 900), new Vector2(1000, 20), Color.GRAY, 1),
                 new Obstacle(new Vector2(1200, 800), new Vector2(600, 20), Color.GRAY, 0)
-        }, 3, new Vector2(3000, 1500));
+        }, 3);
     }
 
     public static Map createMap2(){
@@ -22,6 +22,6 @@ public class MapArsenal {
                 new Obstacle(new Vector2(1100, 500), new Vector2(300, 20), Color.GRAY, 1),
                 new Obstacle(new Vector2(400, 400), new Vector2(300, 20), Color.GRAY, 0),
                 new Obstacle(new Vector2(1100, 400), new Vector2(300, 20), Color.GRAY, 0)
-        }, 4, new Vector2(3000, 2000));
+        }, 4);
     }
 }

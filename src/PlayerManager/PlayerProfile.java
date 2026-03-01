@@ -14,10 +14,10 @@ public class PlayerProfile implements KeyListener {
     private MovementController movementController;
     private GunController gunController;
 
-    public PlayerProfile(){
+    public PlayerProfile(Map map){
         player = new Player(
-                new Vector2(1500, -500),
-                new Vector2(40, 70),
+                map,new Vector2(1500, -500),
+                new Vector2(40, 60),
                 Color.CYAN, 3, 0.175, 6, 2);
 
     }

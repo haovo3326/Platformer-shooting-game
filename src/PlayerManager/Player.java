@@ -2,10 +2,12 @@ package PlayerManager;
 
 import Camera.ChasingCamera;
 import CustomMath.Vector2;
+import Maps.Map;
 
 import java.awt.*;
 
 public class Player {
+    private final Map map;
     public Vector2 translation;
     public Vector2 scale;
     public Vector2 velocity;
@@ -19,8 +21,12 @@ public class Player {
     public int jumpLimit;
     public int jumpCount;
     public boolean isGrounded;
+    public boolean isDead;
 
-    public Player(Vector2 translation, Vector2 scale, Color color, double speed, double acceleration, double jumpBurst, int jumpLimit){
+    public Player(Map map, Vector2 translation, Vector2 scale,
+                  Color color, double speed, double acceleration,
+                  double jumpBurst, int jumpLimit){
+        this.map = map;
         this.translation = translation;
         this.scale = scale;
         this.color = color;
@@ -77,9 +83,29 @@ public class Player {
         }
     }
 
+    private void checkDeath(){
+        Vector2 center = translation.add2Vec(scale.mul2Vec(0.5));
+        if(center.x < Map.ORIGIN.x || center.x >= Map.ORIGIN.x + Map.SCALE.x
+                || center.y > Map.ORIGIN.y + Map.SCALE.y) {
+            isDead = true;
+            spawn();
+        }
+    }
+
+    private void spawn(){
+        if(isDead){
+            isDead = false;
+            Vector2 spawnPos = new Vector2();
+            spawnPos.x = (int) (Math.random() * Map.SPAWN.x) + Map.ORIGIN.x + Map.SCALE.x / 2 - Map.SPAWN.x / 2;
+            spawnPos.y = Map.SPAWN.y;
+            translation = spawnPos.sub2Vec(scale.mul2Vec(0.5));
+        }
+    }
+
     public void update() {
         translation.add(velocity);
         resetJump();
+        checkDeath();
     }
 
     public void render(Graphics2D g2d, ChasingCamera camera){

@@ -13,10 +13,10 @@ public class BotProfile {
     private MovementController movementController;
     private GunController gunController;
 
-    public BotProfile(){
+    public BotProfile(Map map){
         host = new Player(
-                new Vector2(1500, -500),
-                new Vector2(40, 70),
+                map, new Vector2(1500, -500),
+                new Vector2(40, 60),
                 Color.YELLOW, 3, 0.175, 6, 2
         );
     }

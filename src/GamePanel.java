@@ -71,15 +71,15 @@ public class GamePanel extends JPanel implements KeyListener {
     // --- Standard functions ---
     private void init() {
         // TODO: load resources, init variables
-        playerProfile = new PlayerProfile();
-        botProfile = new BotProfile();
         map1 = MapArsenal.createMap1();
+        playerProfile = new PlayerProfile(map1);
+        botProfile = new BotProfile(map1);
+
         playerProfile.initController(new ArrayList<>(Collections.singletonList(botProfile.getHost())));
         botProfile.initController(new ArrayList<>(Collections.singletonList(playerProfile.getHost())), map1);
 
         camera = new ChasingCamera(new ArrayList<>(Arrays.asList(playerProfile.getHost(), botProfile.getHost())),
-                map1,
-                frameSize, 0.033, 0.05);
+                frameSize, 0.02, 0.05);
         physics = new PhysicHandler(new Player[]{playerProfile.getHost(), botProfile.getHost()}, map1);
         physics.init(0.15, 0.075);
     }
