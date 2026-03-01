@@ -4,18 +4,25 @@ import Camera.ChasingCamera;
 import CustomMath.Vector2;
 import PlayerManager.Player;
 
+import javax.imageio.ImageIO;
 import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Objects;
 
 public class Gun {
     private final Player host;
-    private final Vector2 scale;
     private final List<Player> enemies;
     private final List<Ammo> ammo;
     private int fireTimer;
     public boolean isUsed;
+
+    private final Vector2 scale;
+    private BufferedImage leftImg;
+    private BufferedImage rightImg;
 
     private final int fireRate;
     private final int ammoPump;        // How much ammo is shot at once
@@ -26,16 +33,14 @@ public class Gun {
     private final int ammoLongevity;   // Expectancy of ammo (Frames to exist)
     private final double ammoRepel;    // Impulse to repel enemies
 
-    public Gun(Player host, Vector2 scale, List<Player> enemies,
+    public Gun(String leftImgPath, String rightImgPath,
+               Vector2 scale, Player host, List<Player> enemies,
                int fireRate, int ammoPump, double ammoSize,
                double ammoSpeed, double recoilAngle, double recoilBurst,
                int ammoLongevity, double ammoRepel){
         this.host = host;
         this.scale = scale;
         this.enemies = enemies;
-        this.ammo = new ArrayList<>();
-        this.isUsed = false;
-
         this.fireRate = fireRate;
         this.ammoPump = ammoPump;
         this.ammoSize = ammoSize;
@@ -44,6 +49,15 @@ public class Gun {
         this.recoilBurst = recoilBurst;
         this.ammoLongevity = ammoLongevity;
         this.ammoRepel = ammoRepel;
+
+        try {
+            rightImg = ImageIO.read(new File(rightImgPath));
+            leftImg = ImageIO.read(new File(leftImgPath));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        this.ammo = new ArrayList<>();
+        this.isUsed = false;
     }
 
     public void shoot(){
@@ -54,7 +68,7 @@ public class Gun {
                 for(int i = 0; i < ammoPump; i ++){
                     // Spawn ammo
                     Vector2 spawn = new Vector2(
-                            host.translation.x + host.scale.x / 2 + scale.x,
+                            host.translation.x + host.scale.x / 2 + scale.x / 2,
                             host.translation.y + host.scale.y / 2 - ammoSize / 2
                     );  // At the middle-end of the gun
                     double angle = Math.random() * 2 * recoilAngle - recoilAngle;
@@ -71,7 +85,7 @@ public class Gun {
                 for(int i = 0; i < ammoPump; i ++){
                     // Spawn ammo
                     Vector2 spawn = new Vector2(
-                            host.translation.x + host.scale.x / 2 - scale.x,
+                            host.translation.x + host.scale.x / 2 - scale.x / 2,
                             host.translation.y + host.scale.y / 2 - ammoSize / 2
                     );  // At the middle-end of the gun
                     double angle = Math.PI - recoilAngle + Math.random() * 2 * recoilAngle;
@@ -113,18 +127,22 @@ public class Gun {
         if(isUsed){
             g2d.setColor(Color.WHITE);
             if(host.direction.equals("right")){
-                g2d.fillRect(
-                        (int)((host.translation.x + host.scale.x / 2 - camera.translation.x) * camera.frameRes.x / ChasingCamera.REFERENCE_RES.x),
+                g2d.drawImage(
+                        rightImg,
+                        (int)((host.translation.x + host.scale.x / 2 - scale.x / 2 - camera.translation.x) * camera.frameRes.x / ChasingCamera.REFERENCE_RES.x),
                         (int)((host.translation.y + host.scale.y / 2 - scale.y / 2 - camera.translation.y) * camera.frameRes.y / ChasingCamera.REFERENCE_RES.y),
                         (int) (scale.x * camera.frameRes.x / ChasingCamera.REFERENCE_RES.x),
-                        (int) (scale.y * camera.frameRes.y / ChasingCamera.REFERENCE_RES.y)
+                        (int) (scale.y * camera.frameRes.y / ChasingCamera.REFERENCE_RES.y),
+                        null
                 );
             } else {
-                g2d.fillRect(
-                        (int)((host.translation.x + host.scale.x / 2 - scale.x - camera.translation.x) * camera.frameRes.x / ChasingCamera.REFERENCE_RES.x),
+                g2d.drawImage(
+                        leftImg,
+                        (int)((host.translation.x + host.scale.x / 2 + scale.x / 2 - scale.x - camera.translation.x) * camera.frameRes.x / ChasingCamera.REFERENCE_RES.x),
                         (int)((host.translation.y + host.scale.y / 2 - scale.y / 2 - camera.translation.y) * camera.frameRes.y / ChasingCamera.REFERENCE_RES.y),
                         (int) (scale.x * camera.frameRes.x / ChasingCamera.REFERENCE_RES.x),
-                        (int) (scale.y * camera.frameRes.y / ChasingCamera.REFERENCE_RES.y)
+                        (int) (scale.y * camera.frameRes.y / ChasingCamera.REFERENCE_RES.y),
+                        null
                 );
             }
         }

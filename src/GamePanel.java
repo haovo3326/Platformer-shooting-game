@@ -28,19 +28,17 @@ public class GamePanel extends JPanel implements KeyListener {
         requestFocusInWindow();
         this.frameSize = frameSize;
     }
+
     public void startGame() {
         if (running) return;
-
         running = true;
+        init();
         gameThread = new Thread(this::gameLoop, "GameLoopThread");
         gameThread.start();
     }
-    public void stopGame() {
-        running = false;
-    }
-    private void gameLoop() {
-        init(); // one-time setup
 
+    private void gameLoop() {
+         // one-time setup
         long last = System.nanoTime();
 
         while (running) {

@@ -19,7 +19,6 @@ public class PlayerProfile implements KeyListener {
                 map,new Vector2(1500, -500),
                 new Vector2(40, 60),
                 Color.CYAN, 3, 0.175, 6, 2);
-
     }
 
     public void initController(List<Player> enemies){

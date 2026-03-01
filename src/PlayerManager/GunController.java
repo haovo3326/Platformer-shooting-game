@@ -14,7 +14,7 @@ public class GunController implements KeyListener {
 
     public GunController(Player host, List<Player> enemies){
         arsenal = new GunArsenal(host, enemies);
-        arsenal.useGun("");
+        arsenal.useGun("Rifle");
     }
 
     public void input(){

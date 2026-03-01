@@ -37,6 +37,7 @@ public class Player {
         jumpCount = 0;
         isGrounded = false;
         velocity = new Vector2();
+        spawn();
     }
 
     public void accelerate(Vector2 a){
