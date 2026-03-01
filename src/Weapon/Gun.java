@@ -12,23 +12,27 @@ import java.util.List;
 public class Gun {
     private final Player host;
     private final Vector2 scale;
-    public boolean isUsed;
+    private final List<Player> enemies;
     private final List<Ammo> ammo;
     private int fireTimer;
+    public boolean isUsed;
 
     private final int fireRate;
     private final int ammoPump;        // How much ammo is shot at once
     private final double ammoSize;     // Ammo per second
     private final double ammoSpeed;    // Ammo speed
-    private final double recoilAngle;  // Maximum ammo deflection angle
+    private final double recoilAngle;  // Maximum ammo deflection angle (Radian)
     private final double recoilBurst;  // Impulse to repel host
-    private final int ammoLongevity;
+    private final int ammoLongevity;   // Expectancy of ammo (Frames to exist)
+    private final double ammoRepel;    // Impulse to repel enemies
 
-    public Gun(Player host, Vector2 scale, int fireRate,
-               int ammoPump, double ammoSize, double ammoSpeed,
-               double recoilAngle, double recoilBurst, int ammoLongevity){
+    public Gun(Player host, Vector2 scale, List<Player> enemies,
+               int fireRate, int ammoPump, double ammoSize,
+               double ammoSpeed, double recoilAngle, double recoilBurst,
+               int ammoLongevity, double ammoRepel){
         this.host = host;
         this.scale = scale;
+        this.enemies = enemies;
         this.ammo = new ArrayList<>();
         this.isUsed = false;
 
@@ -39,6 +43,7 @@ public class Gun {
         this.recoilAngle = recoilAngle;
         this.recoilBurst = recoilBurst;
         this.ammoLongevity = ammoLongevity;
+        this.ammoRepel = ammoRepel;
     }
 
     public void shoot(){
@@ -53,7 +58,10 @@ public class Gun {
                             host.translation.y + host.scale.y / 2 - ammoSize / 2
                     );  // At the middle-end of the gun
                     double angle = Math.random() * 2 * recoilAngle - recoilAngle;
-                    ammo.add(new Ammo(spawn, new Vector2(ammoSize, ammoSize), ammoSpeed, angle, ammoLongevity));
+                    ammo.add(new Ammo(
+                            enemies, spawn, new Vector2(ammoSize, ammoSize),
+                            ammoSpeed, angle, ammoRepel, ammoLongevity
+                    ));
                 }
 
 
@@ -67,7 +75,10 @@ public class Gun {
                             host.translation.y + host.scale.y / 2 - ammoSize / 2
                     );  // At the middle-end of the gun
                     double angle = Math.PI - recoilAngle + Math.random() * 2 * recoilAngle;
-                    ammo.add(new Ammo(spawn, new Vector2(ammoSize, ammoSize), ammoSpeed, angle, ammoLongevity));
+                    ammo.add(new Ammo(
+                            enemies, spawn, new Vector2(ammoSize, ammoSize),
+                            ammoSpeed, angle, ammoRepel, ammoLongevity
+                    ));
                 }
 
             }

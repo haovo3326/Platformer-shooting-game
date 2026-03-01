@@ -6,19 +6,24 @@ import CustomMath.Vector2;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.util.List;
 
 public class PlayerProfile implements KeyListener {
     private final Player player;
-    private final MovementController movementController;
-    private final GunController gunController;
+    private MovementController movementController;
+    private GunController gunController;
 
     public PlayerProfile(){
         player = new Player(
                 new Vector2(600, 100),
                 new Vector2(40, 70),
                 Color.CYAN, 3, 0.175, 6, 2);
+
+    }
+
+    public void initController(List<Player> enemies){
         movementController = new MovementController(player);
-        gunController = new GunController(player);
+        gunController = new GunController(player, enemies);
     }
 
     public Player getPlayer(){

@@ -9,6 +9,9 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 
 public class GamePanel extends JPanel implements KeyListener {
 
@@ -69,8 +72,11 @@ public class GamePanel extends JPanel implements KeyListener {
     private void init() {
         // TODO: load resources, init variables
         playerProfile = new PlayerProfile();
+        botProfile = new BotProfile();
         map1 = MapArsenal.createMap1();
-        botProfile = new BotProfile(playerProfile.getPlayer(), map1);
+        playerProfile.initController(new ArrayList<>(Collections.singletonList(botProfile.getBot())));
+        botProfile.initController(playerProfile.getPlayer(), map1);
+
         camera = new ChasingCamera(playerProfile.getPlayer(),
                 new Vector2(0, 0),
                 frameSize, 0.033, 0.05);

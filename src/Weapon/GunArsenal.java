@@ -6,19 +6,20 @@ import PlayerManager.Player;
 
 import java.awt.*;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class GunArsenal {
     private final Map<String, Gun> arsenal;
     private String currentGun;
 
-    public GunArsenal(Player player){
+    public GunArsenal(Player host, List<Player> enemies){
         arsenal = new HashMap<>();
         currentGun = "Glick";
         // Handguns
-        arsenal.put("Glick", new Gun(player, new Vector2(40, 16), 8,
-                1,10, 7,
-                Math.toRadians(1), 0.75, 150));
+        arsenal.put("Glick", new Gun(host, new Vector2(40, 16), enemies,
+                6, 1,10, 7,
+                Math.toRadians(1), 0.75, 150, 10));
     }
 
     public void useGun(String tag){

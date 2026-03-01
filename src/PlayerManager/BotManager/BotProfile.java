@@ -9,14 +9,19 @@ import java.awt.*;
 
 public class BotProfile {
     private final Player bot;
-    private final MovementController movementController;
+    private MovementController movementController;
 
-    public BotProfile(Player player, Map map){
+    public BotProfile(){
         bot = new Player(
                 new Vector2(1000, 100),
                 new Vector2(40, 70),
-                Color.YELLOW, 3, 0.175, 6, 2);
+                Color.YELLOW, 3, 0.175, 6, 2
+        );
+    }
+
+    public void initController(Player player, Map map){
         movementController = new MovementController(bot, player, map);
+
     }
 
     public Player getBot(){

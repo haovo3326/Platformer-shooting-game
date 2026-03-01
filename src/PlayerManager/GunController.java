@@ -6,13 +6,14 @@ import Weapon.GunArsenal;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.util.List;
 
 public class GunController implements KeyListener {
     private final GunArsenal arsenal;
     private boolean shoot;
 
-    public GunController(Player player){
-        arsenal = new GunArsenal(player);
+    public GunController(Player player, List<Player> enemies){
+        arsenal = new GunArsenal(player, enemies);
         arsenal.useGun("Glick");
     }
 
