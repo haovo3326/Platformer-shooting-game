@@ -59,7 +59,7 @@ public class GamePanel extends JPanel implements KeyListener {
     }
 
     // Game's components
-    private Map map2;
+    private Map map1;
     private PhysicHandler physics;
     private ChasingCamera camera;
     private PlayerProfile playerProfile;
@@ -69,12 +69,12 @@ public class GamePanel extends JPanel implements KeyListener {
     private void init() {
         // TODO: load resources, init variables
         playerProfile = new PlayerProfile();
-        map2 = MapArsenal.createMap2();
-        botProfile = new BotProfile(playerProfile.getPlayer(), map2);
+        map1 = MapArsenal.createMap1();
+        botProfile = new BotProfile(playerProfile.getPlayer(), map1);
         camera = new ChasingCamera(playerProfile.getPlayer(),
                 new Vector2(0, 0),
                 frameSize, 0.033, 0.05);
-        physics = new PhysicHandler(new Player[]{playerProfile.getPlayer(), botProfile.getBot()}, map2);
+        physics = new PhysicHandler(new Player[]{playerProfile.getPlayer(), botProfile.getBot()}, map1);
         physics.init(0.15, 0.075);
     }
 
@@ -93,7 +93,7 @@ public class GamePanel extends JPanel implements KeyListener {
 
     private void render(Graphics2D g2d) {
         // TODO: optional: compute what to draw (often empty in Swing)
-        map2.render(g2d, camera);
+        map1.render(g2d, camera);
         playerProfile.render(g2d, camera);
         botProfile.render(g2d, camera);
     }

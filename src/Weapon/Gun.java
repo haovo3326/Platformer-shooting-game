@@ -6,8 +6,8 @@ import PlayerManager.Player;
 
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
-import java.util.Random;
 
 public class Gun {
     private final Player host;
@@ -22,8 +22,11 @@ public class Gun {
     private final double ammoSpeed;    // Ammo speed
     private final double recoilAngle;  // Maximum ammo deflection angle
     private final double recoilBurst;  // Impulse to repel host
+    private final int ammoLongevity;
 
-    public Gun(Player host, Vector2 scale, int fireRate, int ammoPump, double ammoSize, double ammoSpeed, double recoilAngle, double recoilBurst){
+    public Gun(Player host, Vector2 scale, int fireRate,
+               int ammoPump, double ammoSize, double ammoSpeed,
+               double recoilAngle, double recoilBurst, int ammoLongevity){
         this.host = host;
         this.scale = scale;
         this.ammo = new ArrayList<>();
@@ -35,6 +38,7 @@ public class Gun {
         this.ammoSpeed = ammoSpeed;
         this.recoilAngle = recoilAngle;
         this.recoilBurst = recoilBurst;
+        this.ammoLongevity = ammoLongevity;
     }
 
     public void shoot(){
@@ -49,7 +53,7 @@ public class Gun {
                             host.translation.y + host.scale.y / 2 - ammoSize / 2
                     );  // At the middle-end of the gun
                     double angle = Math.random() * 2 * recoilAngle - recoilAngle;
-                    ammo.add(new Ammo(spawn, new Vector2(ammoSize, ammoSize), ammoSpeed, angle));
+                    ammo.add(new Ammo(spawn, new Vector2(ammoSize, ammoSize), ammoSpeed, angle, ammoLongevity));
                 }
 
 
@@ -63,7 +67,7 @@ public class Gun {
                             host.translation.y + host.scale.y / 2 - ammoSize / 2
                     );  // At the middle-end of the gun
                     double angle = Math.PI - recoilAngle + Math.random() * 2 * recoilAngle;
-                    ammo.add(new Ammo(spawn, new Vector2(ammoSize, ammoSize), ammoSpeed, angle));
+                    ammo.add(new Ammo(spawn, new Vector2(ammoSize, ammoSize), ammoSpeed, angle, ammoLongevity));
                 }
 
             }
@@ -77,8 +81,14 @@ public class Gun {
         } else if(fireTimer >= 120 / fireRate) fireTimer = 0;
 
         if(!ammo.isEmpty()){
-            for(Ammo am : ammo){
-                am.update();
+            Iterator<Ammo> it = ammo.iterator();
+            while (it.hasNext()) {
+                Ammo am = it.next();
+                if (!am.disappear()) {
+                    am.update();
+                } else {
+                    it.remove();
+                }
             }
         }
     }
