@@ -12,9 +12,9 @@ public class GunController implements KeyListener {
     private final GunArsenal arsenal;
     private boolean shoot;
 
-    public GunController(Player player, List<Player> enemies){
-        arsenal = new GunArsenal(player, enemies);
-        arsenal.useGun("Glick");
+    public GunController(Player host, List<Player> enemies){
+        arsenal = new GunArsenal(host, enemies);
+        arsenal.useGun("");
     }
 
     public void input(){

@@ -24,12 +24,16 @@ public class GunArsenal {
 
     public void useGun(String tag){
         arsenal.get(currentGun).isUsed = false;
-        arsenal.get(tag).isUsed = true;
         currentGun = tag;
+        if(arsenal.containsKey(currentGun)){
+            arsenal.get(currentGun).isUsed = true;
+        }
     }
 
     public void shoot(){
-        arsenal.get(currentGun).shoot();
+        if(arsenal.containsKey(currentGun)) {
+            arsenal.get(currentGun).shoot();
+        }
     }
 
     public void update(){

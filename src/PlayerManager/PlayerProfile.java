@@ -26,7 +26,7 @@ public class PlayerProfile implements KeyListener {
         gunController = new GunController(player, enemies);
     }
 
-    public Player getPlayer(){
+    public Player getHost(){
         return player;
     }
 

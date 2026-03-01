@@ -12,7 +12,8 @@ public class ChasingCamera {
     private final double lerpingRate;
 
 
-    public ChasingCamera(Player player, Vector2 translation, Vector2 frameSize, double lerpingRate, double idleRadius){
+    public ChasingCamera(Player player, Vector2 translation, Vector2 frameSize,
+                         double lerpingRate, double idleRadius){
         this.player = player;
         this.translation = translation;
         this.lerpingRate = lerpingRate;

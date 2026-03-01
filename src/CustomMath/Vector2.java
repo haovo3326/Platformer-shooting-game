@@ -26,11 +26,22 @@ public class Vector2 {
         );
     }
 
+    public Vector2 sub2Vec(Vector2 other){
+        return new Vector2(
+                x - other.x,
+                y - other.y
+        );
+    }
+
     public Vector2 mul2Vec(double v){
         return new Vector2(
                 x * v,
                 y * v
         );
+    }
+
+    public double length2(){
+        return x * x + y * y;
     }
 
     public double length(){
