@@ -19,6 +19,11 @@ public class Vector2 {
         y += other.y;
     }
 
+    public void mul(double v){
+        x *= v;
+        y *= v;
+    }
+
     public Vector2 add2Vec(Vector2 other){
         return new Vector2(
                 x + other.x,

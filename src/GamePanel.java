@@ -10,6 +10,7 @@ import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 
 public class GamePanel extends JPanel implements KeyListener {
@@ -76,8 +77,8 @@ public class GamePanel extends JPanel implements KeyListener {
         playerProfile.initController(new ArrayList<>(Collections.singletonList(botProfile.getHost())));
         botProfile.initController(new ArrayList<>(Collections.singletonList(playerProfile.getHost())), map1);
 
-        camera = new ChasingCamera(playerProfile.getHost(),
-                new Vector2(0, 0),
+        camera = new ChasingCamera(new ArrayList<>(Arrays.asList(playerProfile.getHost(), botProfile.getHost())),
+                map1,
                 frameSize, 0.033, 0.05);
         physics = new PhysicHandler(new Player[]{playerProfile.getHost(), botProfile.getHost()}, map1);
         physics.init(0.15, 0.075);

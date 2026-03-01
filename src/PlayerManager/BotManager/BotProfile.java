@@ -15,7 +15,7 @@ public class BotProfile {
 
     public BotProfile(){
         host = new Player(
-                new Vector2(1000, 100),
+                new Vector2(1500, -500),
                 new Vector2(40, 70),
                 Color.YELLOW, 3, 0.175, 6, 2
         );

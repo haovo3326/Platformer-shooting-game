@@ -76,6 +76,7 @@ public class Player {
             jumpCount = 0;
         }
     }
+
     public void update() {
         translation.add(velocity);
         resetJump();

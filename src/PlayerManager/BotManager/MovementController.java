@@ -57,7 +57,7 @@ public class MovementController {
         // Check if bot is standing off the base
         Obstacle base = map.levels.getLast().getFirst();
         Vector2 baseCenter = base.translation.add2Vec(base.scale.mul2Vec(0.5));
-        if(Math.abs(hostCenter.x - baseCenter.x) > base.scale.x / 2){
+        if(Math.abs(hostCenter.x - baseCenter.x) > base.scale.x / 2 + host.scale.x / 2){
             host.jump();
         }
         if(playerCenter.y < hostCenter.y - host.scale.y / 2){
@@ -68,7 +68,7 @@ public class MovementController {
                 List<Obstacle> lowerPlatform = map.levels.get(lowerLevel);
                 for(Obstacle obs : lowerPlatform){
                     Vector2 obsCenter = obs.translation.add2Vec(obs.scale.mul2Vec(0.5));
-                    if(Math.abs(obsCenter.x - hostCenter.x) <= obs.scale.x / 2){
+                    if(Math.abs(obsCenter.x - hostCenter.x) <= obs.scale.x / 2 + host.scale.x / 2){
                         host.jump();
                     }
                 }

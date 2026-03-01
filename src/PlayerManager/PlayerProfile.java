@@ -2,6 +2,7 @@ package PlayerManager;
 
 import Camera.ChasingCamera;
 import CustomMath.Vector2;
+import Maps.Map;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;
@@ -15,7 +16,7 @@ public class PlayerProfile implements KeyListener {
 
     public PlayerProfile(){
         player = new Player(
-                new Vector2(600, 100),
+                new Vector2(1500, -500),
                 new Vector2(40, 70),
                 Color.CYAN, 3, 0.175, 6, 2);
 
